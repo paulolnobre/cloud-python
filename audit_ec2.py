@@ -1,21 +1,21 @@
-instancias = [
-    {"id": "i-001", "estado": "running",  "tipo": "t3.micro",  "nome": "web-server-1"},
-    {"id": "i-002", "estado": "stopped",  "tipo": "t3.large",  "nome": "batch-processor"},
-    {"id": "i-003", "estado": "running",  "tipo": "t3.large",  "nome": "api-gateway-proxy"},
-    {"id": "i-004", "estado": "stopped",  "tipo": "t3.micro",  "nome": "dev-sandbox"},
-    {"id": "i-005", "estado": "running",  "tipo": "t3.medium", "nome": "worker-node-1"},
-    {"id": "i-006", "estado": "stopped",  "tipo": "t3.large",  "nome": "data-pipeline"},
+instances = [
+    {"id": "i-001", "state": "running",  "type": "t3.micro",  "name": "web-server-1"},
+    {"id": "i-002", "state": "stopped",  "type": "t3.large",  "name": "batch-processor"},
+    {"id": "i-003", "state": "running",  "type": "t3.large",  "name": "api-gateway-proxy"},
+    {"id": "i-004", "state": "stopped",  "type": "t3.micro",  "name": "dev-sandbox"},
+    {"id": "i-005", "state": "running",  "type": "t3.medium", "name": "worker-node-1"},
+    {"id": "i-006", "state": "stopped",  "type": "t3.large",  "name": "data-pipeline"},
 ]
 
-ids_paradas = [i["id"] for i in instancias if i["estado"] == "stopped"]
-t3_large_running = [i["id"] for i in instancias if i["estado"] == "running" and i["tipo"] == "t3.large"]
+stopped_ids = [i["id"] for i in instances if i["state"] == "stopped"]
+t3_large_running = [i["id"] for i in instances if i["state"] == "running" and i["type"] == "t3.large"]
 
-contagem = {}
-for i in instancias:
-    estado = i["estado"]
-    contagem[estado] = contagem.get(estado, 0) + 1
+count = {}
+for i in instances:
+    state = i["state"]
+    count[state] = count.get(state, 0) + 1
 
 print("=== EC2 Audit Report ===")
-print(f"Instâncias paradas (candidatas a limpeza): {ids_paradas}")
-print(f"Instâncias t3.large rodando (custo alto): {t3_large_running}")
-print(f"Contagem por estado: {contagem}")
+print(f"Stopped instances (cleanup candidates): {stopped_ids}")
+print(f"t3.large instances running (high cost): {t3_large_running}")
+print(f"Count by state: {count}")
