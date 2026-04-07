@@ -1,50 +1,27 @@
-# Cloud Python
+# EC2 Error Handler
 
-A collection of Python scripts and small projects focused on Cloud Computing, with an emphasis on AWS.
+Utility script that simulates and handles the most common AWS API errors
+encountered when operating EC2 instances via boto3.
 
-This repository is designed as a practical learning environment where I build, test, and organize automation scripts that can be used in real-world cloud scenarios.
+## What it does
 
-## Objectives
+- Validates EC2 instance ID format before making API calls
+- Handles permission errors (IAM policy violations)
+- Handles resource not found errors
+- Returns structured output for each failure type
 
-- Apply Python in cloud environments
-- Automate common AWS tasks
-- Build a solid technical foundation in Cloud Engineering
-- Create a practical portfolio for real-world use cases
+## Error types covered
 
-## Repository Structure
+| Error | Trigger | Real AWS equivalent |
+|---|---|---|
+| `ValueError` | Empty instance ID | Client-side validation before API call |
+| `PermissionError` | Unauthorized instance ID | `AccessDeniedException` from IAM |
+| `LookupError` | Invalid ID format | `InvalidInstanceID.NotFound` from EC2 |
 
-Each folder represents a small project or utility script related to a specific AWS service or cloud concept.
+## Sample output
 
-## Current Projects
+    [INVALID INPUT] Instance ID cannot be empty
+    [ACCESS DENIED] Check your IAM policy. Detail: Not authorized: ec2:DescribeInstances
+    [NOT FOUND] Instance not found: x-9999
+    [OK] Instance state: running
 
-### aws-naming
-Script focused on standardizing and validating naming conventions for AWS resources.
-
-### ec2-audit
-Script for auditing EC2 instances, including inspection of instance states, types, and configurations.
-
-## Technologies
-
-- Python 3
-- AWS (EC2, IAM, S3 and others over time)
-- Boto3 (planned / in progress)
-- CLI-based automation
-
-## Future Improvements
-
-- Expand scripts to cover more AWS services
-- Add better logging and error handling
-- Transform simple scripts into reusable tools
-- Include real-world scenarios and edge cases
-- Add unit testing
-
-## Notes
-
-This repository is part of my learning journey in Cloud Computing and Python. Some scripts are experimental, while others are designed to evolve into more robust tools over time.
-
----
-
-## Author
-
-Paulo Nobre  
-Cloud Engineering | Python | AWS
